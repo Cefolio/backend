@@ -4,7 +4,7 @@
   "description": "chefolio",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon index.js",
+    "server": "nodemon",
     "start": "node index.js",
     "test": "cross-env DB_ENV=testing jest --watch"
   },
