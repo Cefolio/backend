@@ -6,13 +6,16 @@
   "scripts": {
     "server": "nodemon index.js",
     "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env DB_ENV=testing jest --watch"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Cefolio/backend.git"
   },
-  "author": "Brittney",
+  "author": "Brittney & Taylor",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Cefolio/backend/issues"
@@ -20,15 +23,18 @@
   "homepage": "https://github.com/Cefolio/backend#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "branca": "^0.3.0",
     "cors": "^2.8.5",
+    "cross-env": "^6.0.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-session": "^1.17.0",
     "helmet": "^3.21.2",
-    "jsonwebtoken": "^8.5.1",
-    "knex": "^0.20.4",
+    "jest": "^24.9.0",
+    "knex": "^0.20.7",
+    "morgan": "^1.9.1",
     "pg": "^7.15.1",
-    "sqlite3": "^4.1.1"
+    "sqlite3": "^4.1.1",
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
