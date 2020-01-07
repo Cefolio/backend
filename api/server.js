@@ -24,6 +24,9 @@ server.use(express.json());
 const user = require('./rout/user_router');
 server.use('/users', user);
 
+const recipes = require('./rout/res_route');
+server.use('/recipes', recipes);
+
 // server welcome message
 server.get("/", (req, res) => {
     try {
