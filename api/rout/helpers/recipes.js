@@ -4,7 +4,9 @@ module.exports = {
   find, 
   insert,
   findById, 
-  remove
+  remove,
+  findChef,
+  findGenre
 };
 
 function find() {
@@ -28,3 +30,13 @@ function remove(id) {
     .first()
     .del();
 };
+
+function findChef(user_id){
+  return db('recipes')
+  .where({ user_id })
+}
+
+function findGenre(meal_type){
+  return db('recipes')
+  .where({ meal_type })
+}

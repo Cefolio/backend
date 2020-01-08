@@ -71,3 +71,12 @@ https://chefmode.herokuapp.com/recipes/
 ### DELETE 
 
 https://chefmode.herokuapp.com/recipes/:id
+
+
+### GET recipes by user
+
+https://chefmode.herokuapp.com/recipes/usr/:id
+
+### GET recipes by meal type
+
+https://chefmode.herokuapp.com/recipes/:category
