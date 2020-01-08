@@ -80,3 +80,7 @@ https://chefmode.herokuapp.com/recipes/usr/:id
 ### GET recipes by meal type
 
 https://chefmode.herokuapp.com/recipes/:category
+
+### UPDATE recipes
+
+https://chefmode.herokuapp.com/recipes/:id

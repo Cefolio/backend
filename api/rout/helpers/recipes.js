@@ -6,7 +6,8 @@ module.exports = {
   findById, 
   remove,
   findChef,
-  findGenre
+  findGenre,
+  update
 };
 
 function find() {
@@ -39,4 +40,10 @@ function findChef(user_id){
 function findGenre(meal_type){
   return db('recipes')
   .where({ meal_type })
+}
+
+async function update(id, recipes){
+  await db('recipes')
+  .where({ id })
+  .update(recipes)
 }

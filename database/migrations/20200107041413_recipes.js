@@ -5,8 +5,8 @@ exports.up = function(knex, promise) {
         t.string('title');
         t.string('meal_type');
         t.text('img');
-        t.string('ingredients');
-        t.string('instructions');
+        t.text('ingredients');
+        t.text('instructions');
         
         // foreign key to user
          t.integer('user_id')

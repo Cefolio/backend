@@ -71,9 +71,9 @@ router.get('/usr/:id', async (req, res) => {
 
 // host:port/recipes/:category
 // GET by meal_type
-router.get('/:category', (req, res) => {
+router.get('/:category', async (req, res) => {
     try{
-        qxsql.findGenre(req.params.category)
+        await qxsql.findGenre(req.params.category)
         .then(data => {
             data
             ? res.status(200).json(data)
@@ -86,15 +86,15 @@ router.get('/:category', (req, res) => {
 
 //// host:port/recipes/:id
 // PUT for a recipe
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
     try{
         routeGuard(req.headers.token, res);
-
+        const id = req.params.id
         const recipe = req.body;
 
         !recipe
         ? res.status(422).json({message: 'cannot edit'})
-        : qxsql.insert(recipe) 
+        : qxsql.update(id, recipe) 
         && res.status(201).json(recipe);
         
     }catch(error){
