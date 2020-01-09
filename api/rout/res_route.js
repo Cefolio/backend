@@ -69,6 +69,22 @@ router.get('/usr/:id', async (req, res) => {
     }
 });
 
+
+// host:port/recipes/:id
+// GET by recipes ID
+router.get('/:id', async (req, res) => {
+    try{
+        await qxsql.findById(req.params.id)
+        .then(data => {
+            data
+            ? res.status(200).json(data)
+            : res.status(404).json({message: 'There is no recipe with this id.'});
+        });
+    }catch(error){
+        res.status(500).json(error);
+    }
+});
+
 // host:port/recipes/:category
 // GET by meal_type
 router.get('/:category', async (req, res) => {
