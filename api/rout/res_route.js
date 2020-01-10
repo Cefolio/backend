@@ -24,20 +24,19 @@ router.get('/', async (req, res)=>{
 // POST res
 router.post('/' , async (req, res) =>{
     try{
-        routeGuard(req.headers.token, res);
+        // routeGuard(req.headers.token, res);
 
         const recipe = req.body;
 
-        const user_id = res.body.user_id
-
         !recipe
         ? res.status(422).json({message: 'cannot receive nothing'})
-        : qxsql.insert(recipe) 
-        && qxsql.findChef(user_id)
-        .then(data => res.status(201).send(data))
+        : qxsql.insert(recipe)
+        && qxsql.findChef(recipe.user_id).then(
+            data => {res.status(201).json(data)}
+        );
         
     }catch(error){
-        res.status(500).send(error);
+        res.status(500).send(error, console.log(error));
     }
 });
 
