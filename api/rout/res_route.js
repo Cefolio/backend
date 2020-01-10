@@ -30,7 +30,7 @@ router.post('/' , async (req, res) =>{
 
         !recipe
         ? res.status(422).json({message: 'cannot receive nothing'})
-        : qxsql.insert(recipe)
+        : await qxsql.insert(recipe)
         && qxsql.findChef(recipe.user_id).then(
             data => {res.status(201).json(data)}
         );
@@ -44,15 +44,15 @@ router.post('/' , async (req, res) =>{
 // DELETE
 router.delete('/:id', (req, res) => {
     try{
-        routeGuard(req.headers.token, res);
         qxsql.remove(req.params.id)
         .then(deleted => {
+            console.log(deleted)
           deleted
           ? res.status(200).json({ message: 'Recipe has been deleted' })
           : res.status(404).json({ message: 'There are no recipes that have this ID' });
         })
     }catch(error){
-        res.status(500).json(error);
+        res.status(500).json(error, console.log(error));
     }
 });
 
