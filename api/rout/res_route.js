@@ -28,10 +28,13 @@ router.post('/' , async (req, res) =>{
 
         const recipe = req.body;
 
+        const user_id = res.body.user_id
+
         !recipe
         ? res.status(422).json({message: 'cannot receive nothing'})
         : qxsql.insert(recipe) 
-        && res.status(201).json(recipe);
+        && qxsql.findChef(user_id)
+        .then(data => res.status(201).send(data))
         
     }catch(error){
         res.status(500).send(error);
