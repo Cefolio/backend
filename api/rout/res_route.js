@@ -42,14 +42,16 @@ router.post('/' , async (req, res) =>{
 
 // host:port/recipes/:id
 // DELETE
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
     try{
-        qxsql.remove(req.params.id)
-        .then(deleted => {
-          deleted
-          ? res.status(200).json({ message: 'Recipe has been deleted' })
-          : res.status(404).json({ message: 'There are no recipes that have this ID' });
-        })
+        req.headers.token 
+            ? await qxsql.remove(req.params.id)
+            .then(deleted => {
+                deleted
+                ? res.status(200).json({message: 'Recipe deleted'})
+                : res.status(404).json({message: 'I cannot delete what I does not exist.'});
+            })
+            : console.log('no token')
     }catch(error){
         res.status(500).json(error, console.log(error));
     }
