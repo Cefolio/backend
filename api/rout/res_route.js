@@ -46,7 +46,6 @@ router.delete('/:id', (req, res) => {
     try{
         qxsql.remove(req.params.id)
         .then(deleted => {
-            console.log(deleted)
           deleted
           ? res.status(200).json({ message: 'Recipe has been deleted' })
           : res.status(404).json({ message: 'There are no recipes that have this ID' });
