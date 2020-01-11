@@ -3,6 +3,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const secret = require('./config/secrets');
 
 const User = require ('../users/users-model');
 
@@ -29,14 +30,14 @@ console.log(user);
 });
 
 router.post('/login', (req, res) => {
-  let { username, password } = req.headers;
+  let { username, password } = req.body;
   User.findBy({ username })
   .first()
     .then(user => {
-      const token = generateToken(user);
-
+      
       if(user && bcrypt.compareSync(password, user.password)) {
         req.session.user = user;
+        const token = generateToken(user);
         res.status(200).json({
           message: `Welcome ${user.username}!`,
           token,
@@ -64,7 +65,7 @@ function generateToken(user){
   const options = {
     expiresIn: '8h'
   };
-  return jwt.sign(payload, secrets.jwtSecret, options)
+  return jwt.sign(payload, secret.jwtSecret, options)
 };
 
 module.exports = router;
