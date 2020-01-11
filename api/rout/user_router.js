@@ -73,7 +73,7 @@ router.post('/login', async (req, res) => {
           const token = tkGive(user.email);
           //   send   //
           res.status(202).json({
-            message: `Welcome ${user.username}.` , token
+            message: `Welcome ${user.username}.` , token, user
           });
         } else {
           res.status(422).json({message: 'Invalid Login'});
