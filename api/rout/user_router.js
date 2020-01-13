@@ -14,7 +14,7 @@ const routeGuard = require('../../flavors/routeGuard');
 router.get('/', async (req, res) => {
     try{
         const users = await qxsql.find();
-        users 
+        users
         ? res.status(200).json(users)
         : res.status(404).json('NOT FOUND ಥ_ಥ ');
     } catch(error){
@@ -33,7 +33,7 @@ router.post('/registration', async (req, res) => {
         let salty = await bcrypt.genSalt(12)
         let encryptedPass = await bcrypt.hash(req.body.password, salty);
         const token = tkGive(req.body.email);
-        const user = {  
+        const user = {
                       password: encryptedPass,
                       email: req.body.email,
                       username: req.body.username,
@@ -50,7 +50,10 @@ router.post('/registration', async (req, res) => {
           // email, password, and name are required to create a new user
           ? !user.password || !user.email || !user.name
             ? res.status(400).json({message: 'Please provide an email, name and password while creating a user'})
-            : qxsql.add(user) &&  res.status(201).json({user, token})
+            // after adding user, find user from db and return user obj with id included
+            : qxsql.add(user) && qxsql.findByEmail(user.email).then(user => {
+              res.status(201).json({user, token})
+            })
           : res.status(409).json({message: 'Email already exists'});
         });
       }
@@ -63,7 +66,7 @@ router.post('/registration', async (req, res) => {
 // POST login
 router.post('/login', async (req, res) => {
     let {email , password} = req.body;
-    
+
     // fist search for the email
     qxsql.findByEmail(email)
       .then(user=>{
@@ -108,7 +111,7 @@ router.delete('/:id',  (req, res) => {
         deleted
         ? res.status(200).json({ message: 'Like they were never here.' })
         : res.status(404).json({ message: 'This is not the user you are looking for' });
-      }).catch(error => 
+      }).catch(error =>
         res.status(500).json(error));
 });
 
