@@ -2,8 +2,8 @@ exports.up = function(knex, promise) {
     return knex.schema.createTable("recipes", t =>{
         t.increments('id');
 
-        t.string('title');
-        t.string('meal_type');
+        t.string('title', 100);
+        t.string('meal_type', 24);
         t.text('img');
         t.text('ingredients');
         t.text('instructions');

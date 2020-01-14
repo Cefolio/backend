@@ -42,7 +42,6 @@ router.post('/registration', async (req, res) => {
                       location: req.body.location,
                       bio: req.body.bio
                     };
-        console.log(user)
         // first we check if the email exists
         qxsql.findByEmail(user.email)
         .then(emailCheck =>{
@@ -51,9 +50,7 @@ router.post('/registration', async (req, res) => {
           ? !user.password || !user.email || !user.name
             ? res.status(400).json({message: 'Please provide an email, name and password while creating a user'})
             // after adding user, find user from db and return user obj with id included
-            : qxsql.add(user) && qxsql.findByEmail(user.email).then(user => {
-              res.status(201).json({user, token})
-            })
+            : qxsql.add(user).then(id => { res.status(201).json({token, id, user}); })
           : res.status(409).json({message: 'Email already exists'});
         });
       }

@@ -4,7 +4,7 @@ exports.up = function(knex, promise) {
 
         t.string('username', 20);
         t.string('password');
-        t.string('email');
+        t.string('email').unique();
         t.string('name');
         t.string('phone_number', 18);
         t.string('location');
